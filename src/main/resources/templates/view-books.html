@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View book form</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>Name</th>
+    <th>ISBN</th>
+    <th>Author</th>
+    </thead>
+    <tbody>
+    <tr th:each="bookDto: ${books}">
+        <td th:text="${bookDto.title}"></td>
+        <td th:text="${bookDto.isbn}"></td>
+        <td th:text="${bookDto.author}"></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/book/create">Back to book creation</a>
+</body>
+</html>
