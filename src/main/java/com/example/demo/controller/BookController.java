@@ -1,5 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.controller;
 
+import com.example.demo.model.BookDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public class BookController {
     List<BookDto> books = new ArrayList<>();
 
     @RequestMapping(value = "/createBooks", method = RequestMethod.POST)
-    public ResponseEntity<List<BookDto>> saveBook(@RequestBody final BookDto bookDto){
+    public ResponseEntity<List<BookDto>> saveBook(BookDto bookDto){
         books.add(bookDto);
         return ResponseEntity.status(HttpStatus.OK).body(books);
     }

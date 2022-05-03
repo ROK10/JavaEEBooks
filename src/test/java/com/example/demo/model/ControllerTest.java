@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.controller.BookController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;

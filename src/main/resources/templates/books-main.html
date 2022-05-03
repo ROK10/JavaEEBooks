@@ -18,7 +18,7 @@
     <form>
         <h1 >Find book</h1>
         <div>
-            <input id="search">
+            <input id="searchField">
             <button id="searchButton">search</button>
         </div>
     </form>
@@ -79,13 +79,13 @@
                 });
             });
             $('#searchButton').click(function(){
-                let searchField = $('#search').val();
+                let searchField = $('#searchField').val();
                 let $searchResult = $('#searchResult');
                 $searchResult.empty();
                 $.ajax({
                     type: 'GET',
                     url: '/searchBooks',
-                    data: 'searchField='+searchField,
+                    data: 'searchField= '+searchField,
                     success: function (response) {
                         response.forEach(function (BookDto) {
                             $searchResult.append('<tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
