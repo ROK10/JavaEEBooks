@@ -16,14 +16,14 @@ public class BookController {
     List<BookDto> books = new ArrayList<>();
 
     @RequestMapping(value = "/createBooks", method = RequestMethod.POST)
-    public ResponseEntity<List<BookDto>> saveBook(BookDto bookDto){
+    public ResponseEntity<List<BookDto>> saveBook(@RequestBody BookDto bookDto){
         books.add(bookDto);
         return ResponseEntity.status(HttpStatus.OK).body(books);
     }
 
-    @GetMapping("/searchBooks")
+    @RequestMapping(value = "/searchBooks", method = RequestMethod.GET)
     public List<BookDto> bookFormFind(@RequestParam("searchField") String search){
-        ArrayList<BookDto> results = new ArrayList<>();
+        List<BookDto> results = new ArrayList<>();
         for (BookDto temp: books) {
             if (temp.getAuthor().contains(search) || temp.getIsbn().contains(search) || temp.getTitle().contains(search)){
                 results.add(temp);

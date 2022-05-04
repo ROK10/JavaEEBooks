@@ -23,30 +23,31 @@
         </div>
     </form>
     <h1 >Search Result</h1>
-    <form>
+    <table>
         <thead>
         <th>Name</th>
         <th>ISBN</th>
         <th>Author</th>
         </thead>
         <tbody id="searchResult">
+
         </tbody>
-    </form>
+    </table>
     <h1 >All Books</h1>
-    <form>
+    <table>
         <thead>
         <th>Name</th>
         <th>ISBN</th>
         <th>Author</th>
         </thead>
         <tbody id="booksTable">
+
         </tbody>
-    </form>
+    </table>
     <script>
         $(function(){
             $('#creationForm').submit(function(e){
                 e.preventDefault();
-
                 let testtitle = $(this).find('[name=title]').val();
                 let testisbn = $(this).find('[name=isbn]').val();
                 let testauthor = $(this).find('[name=author]').val();
@@ -60,16 +61,18 @@
                         isbn: testisbn,
                         author: testauthor
                     }),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Content-Type', 'application/json')},
                     success: function (response) {
                         if (response) {
-                            let $booksTable = $('#booksTable');
-                            $booksTable.empty();
+                            let booksTable = $('#booksTable');
+                            booksTable.empty();
                             $.ajax({
                                 url: '/getBooksList',
                                 success: function (response) {
                                     response.forEach(function (BookDto) {
                                         console.log(BookDto);
-                                        $booksTable.append('<tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
+                                        booksTable.append('<tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
                                             BookDto.author + '</td></tr>');
                                     })
                                 }
@@ -78,17 +81,20 @@
                     }
                 });
             });
-            $('#searchButton').click(function(){
+            $('#searchButton').click(function(e){
+                e.preventDefault();
                 let searchField = $('#searchField').val();
-                let $searchResult = $('#searchResult');
-                $searchResult.empty();
+                let searchResult = $('#searchResult');
+                searchResult.empty();
                 $.ajax({
                     type: 'GET',
                     url: '/searchBooks',
-                    data: 'searchField= '+searchField,
+                    data: {searchField: searchField },
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Content-Type', 'application/json')},
                     success: function (response) {
                         response.forEach(function (BookDto) {
-                            $searchResult.append('<tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
+                            searchResult.append('<tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
                                 BookDto.author + '</td></tr>');
                         })
                     }
