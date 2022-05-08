@@ -1,3 +1,4 @@
+/*
 package com.example.demo.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -106,4 +107,4 @@ public class IntegrationTest {
                     .getList("$", BookDto.class);
         assertEquals(Collections.singletonList(book3), books);
     }
-}
+}*/

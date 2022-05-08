@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Create book form</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Books main page</title>
 </head>
 <body>
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <form id = "creationForm">
         title: <input name="title"/>
         <br />
@@ -25,6 +29,7 @@
     <h1 >Search Result</h1>
     <table>
         <thead>
+        <th>ID</th>
         <th>Name</th>
         <th>ISBN</th>
         <th>Author</th>
@@ -36,6 +41,7 @@
     <h1 >All Books</h1>
     <table>
         <thead>
+        <th>ID</th>
         <th>Name</th>
         <th>ISBN</th>
         <th>Author</th>
@@ -64,20 +70,13 @@
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader('Content-Type', 'application/json')},
                     success: function (response) {
-                        if (response) {
-                            let booksTable = $('#booksTable');
-                            booksTable.empty();
-                            $.ajax({
-                                url: '/getBooksList',
-                                success: function (response) {
-                                    response.forEach(function (BookDto) {
-                                        console.log(BookDto);
-                                        booksTable.append('<tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
-                                            BookDto.author + '</td></tr>');
-                                    })
-                                }
-                            });
-                        }
+                        let booksTable = $('#booksTable');
+                        booksTable.empty();
+                        response.forEach(function (BookDto) {
+                            console.log(BookDto);
+                            booksTable.append('<tr><td>' + BookDto.id + '</tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
+                                BookDto.author + '</td></tr>');
+                        })
                     }
                 });
             });
@@ -93,8 +92,9 @@
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader('Content-Type', 'application/json')},
                     success: function (response) {
+                        searchResult.empty();
                         response.forEach(function (BookDto) {
-                            searchResult.append('<tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
+                            searchResult.append('<tr><td>' + BookDto.id + '</tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
                                 BookDto.author + '</td></tr>');
                         })
                     }
