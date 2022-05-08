@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.BooksService;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -20,7 +19,7 @@ public class BookController {
     BooksService booksService;
 
 
-    @GetMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String bookFormGet(Model model) {
         model.addAttribute("books", booksService.findAllBooks());
         return "books-main";
@@ -34,8 +33,8 @@ public class BookController {
     }
 
     @RequestMapping(value = "/searchBooks", method = RequestMethod.GET)
-    public ResponseEntity<List<BookDto>> bookFormFind(@RequestParam("searchField") String search){
-        return  ResponseEntity.status(HttpStatus.OK).body(booksService.findBooks(search));
+    public ResponseEntity<List<BookDto>> bookFormFind(@RequestParam("searchField") final String searchField){
+        return  ResponseEntity.status(HttpStatus.OK).body(booksService.findBooks(searchField));
     }
 
     @RequestMapping(value = "/getBooksList", method = RequestMethod.GET)
@@ -48,7 +47,7 @@ public class BookController {
         books.clear();
     }*/
     @GetMapping("/book/{id}")
-    public String showHtmlBook(Model model, @PathVariable(name="id") int id) {
+    public String showHtmlBook(Model model, @PathVariable(name="id") long id) {
         BookDto book = booksService.findBookById(id);
         if (book == null)
             return "book_does_not_exist";

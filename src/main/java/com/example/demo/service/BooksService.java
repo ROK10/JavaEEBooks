@@ -1,40 +1,37 @@
 package com.example.demo.service;
 
 import com.example.demo.model.BookDto;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.demo.repository.BookRepository;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BooksService {
 
-    private final EntityManager entityManager;
+    private BookRepository bookRepository;
 
     @Transactional
     public BookDto createBook(BookDto book) {
-        return entityManager.merge(book);
+        return bookRepository.save(book);
     }
 
     @Transactional
     public List<BookDto> findBooks(String search){
-        return entityManager.createQuery("SELECT b FROM BookDto b WHERE b.author LIKE :query OR b.title LIKE :query OR b.isbn LIKE :query", BookDto.class)
-                .setParameter("query", '%' + search + '%')
-                .getResultList();
+        return bookRepository.findBookDtoByTitleContainsOrIsbnContains(search, search);
     }
 
     @Transactional
     public List<BookDto> findAllBooks(){
-        List<BookDto> allBooksList =  entityManager.createQuery("SELECT b FROM BookDto b", BookDto.class).getResultList();
-        return allBooksList;
+        return bookRepository.findAll();
     }
 
     @Transactional
     public BookDto findBookById(long id){
-        return entityManager.find(BookDto.class, id);
+        return bookRepository.findById(id).get();
     }
 
 }
