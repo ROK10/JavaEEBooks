@@ -84,6 +84,9 @@
                                 BookDto.author +'</td><td><a href="/add_to_wishlist/'+ BookDto.id + '">' +
                                 ('Add to wishlist') + '</a> ' +'</td></tr>');
                         })
+                    },
+                    error: function () {
+                        console.log("Error in creating a book!");
                     }
                 });
             });
@@ -105,6 +108,9 @@
                                 BookDto.author +'</td><td><a href="/add_to_wishlist/'+BookDto.id + '">' +
                                 ('Add to wishlist') + '</a> ' +'</td></tr>');
                         })
+                    },
+                    error: function () {
+                        console.log("Error in searching of the book!");
                     }
                 });
             });
