@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/%22%3E">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Wishlist</title>
+</head>
+<body>
+Wish List
+<table id="wishList">
+    <tbody id="booksTable">
+    <tr th:each="book: ${books}">
+        <li>
+            <span th:text="'id= ' + ${book.id}"></span>
+            <span th:text="'title= ' + ${book.title}"></span>
+            <span th:text="'isbn= ' + ${book.isbn}"></span>
+            <span th:text="'author= ' + ${book.author}"></span>
+            <a th:href="@{'/'}">Remove</a></span>
+        </li>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

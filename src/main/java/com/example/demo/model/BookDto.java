@@ -3,15 +3,14 @@ package com.example.demo.model;
 import lombok.*;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 @Entity
 @Table(name = "books")
+@Data
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
-@AllArgsConstructor
 @NoArgsConstructor
 public class BookDto {
 
@@ -28,5 +27,8 @@ public class BookDto {
 
     @Column(name = "author")
     private String author;
+
+    @ManyToMany(mappedBy = "books")
+    List<User> users;
 
 }

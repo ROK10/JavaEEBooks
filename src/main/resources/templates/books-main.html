@@ -47,9 +47,15 @@
         <th>Author</th>
         </thead>
         <tbody id="booksTable">
-
+        <tr th:each="book: ${books}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.author}"></td>
+            <td><a th:href="@{'/add_to_wishlist/' + ${book.id}}">+</a></td>
         </tbody>
     </table>
+    <a href="/books_wishlist"> Books wishlist </a>
     <script>
         $(function(){
             $('#creationForm').submit(function(e){
@@ -75,7 +81,8 @@
                         response.forEach(function (BookDto) {
                             console.log(BookDto);
                             booksTable.append('<tr><td>' + BookDto.id + '</tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
-                                BookDto.author + '</td></tr>');
+                                BookDto.author +'</td><td><a href="/add_to_wishlist/'+ BookDto.id + '">' +
+                                ('Add to wishlist') + '</a> ' +'</td></tr>');
                         })
                     }
                 });
@@ -95,7 +102,8 @@
                         searchResult.empty();
                         response.forEach(function (BookDto) {
                             searchResult.append('<tr><td>' + BookDto.id + '</tr><td>' + BookDto.title + '</td><td>' + BookDto.isbn + '</td><td>' +
-                                BookDto.author + '</td></tr>');
+                                BookDto.author +'</td><td><a href="/add_to_wishlist/'+BookDto.id + '">' +
+                                ('Add to wishlist') + '</a> ' +'</td></tr>');
                         })
                     }
                 });
